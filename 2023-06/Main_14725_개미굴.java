@@ -1,34 +1,44 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.TreeMap;
 
-class Node {
+class Node implements Comparable<Node>{
+	static StringBuilder sb = new StringBuilder();
 	String name;
-	List<Node> child;
+	Map<String, Node> child;
 	
 	Node(String name) {
 		this.name = name;
-		child = new ArrayList<>();
+		child = new TreeMap<>();
 	}
 	
 	Node addChild(String name) {
 		Node next = new Node(name);
-		child.add(next);
+		child.put(name, next);
 		return next;
 	}
 	
 	Node findChild(String name) {
-		for (Node next : child) {
-			if(next.name.equals(name)) {
-				return next;
-			}
+		return child.get(name);
+	}
+
+	@Override
+	public int compareTo(Node o) {
+		return this.name.compareTo(o.name);
+	}
+	
+	void printSubTree(int depth) {
+		for(int i=0; i<depth; i++) {
+			sb.append("--");
 		}
-		return null;
+		if(name!=null) sb.append(name +"\n");
+		
+		for (String next : child.keySet()) {
+			child.get(next).printSubTree(depth+1);
+		}
 	}
 }
 
@@ -44,8 +54,8 @@ public class Main_14725_개미굴 {
 			getInfo(info);
 		}
 		
-		printTree(root, -1);
-		System.out.println(sb.toString());
+		root.printSubTree(-1);
+		System.out.println(Node.sb.toString());
 		
 	}
 	
@@ -59,23 +69,6 @@ public class Main_14725_개미굴 {
 			Node next = now.findChild(name);
 			if(next==null) next = now.addChild(name);
 			now = next;
-		}
-	}
-	
-	static void printTree(Node now, int depth) {
-		for(int i=0; i<depth; i++) {
-			sb.append("--");
-		}
-		if(now.name!=null) sb.append(now.name +"\n");
-		Collections.sort(now.child, new Comparator<Node>() {
-			@Override
-			public int compare(Node o1, Node o2) {
-				return o1.name.compareTo(o2.name);
-			}
-		});;
-		
-		for (Node next : now.child) {
-			printTree(next, depth+1);
 		}
 	}
 }
