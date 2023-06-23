@@ -27,13 +27,7 @@ public class Main_1103_게임 {
 		visited = new boolean[N][M];
 		startAt(0,0);
 		
-		int answer = 0;
-		for (int i=0; i<N; i++) {
-			for (int j=0; j<M; j++) {
-				answer = Math.max(step[i][j], answer);
-			}
-		}
-		System.out.println(answer);
+		System.out.println(step[0][0]);
 		
 	}
 	
