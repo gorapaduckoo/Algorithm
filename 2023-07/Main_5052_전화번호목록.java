@@ -2,15 +2,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 class Node {
 	int cnt;
-	Map<Integer, Node> map;
+	Node[] child;
 	public Node() {
 		this.cnt = 0;
-		this.map = new HashMap<>();
+		this.child = new Node[10];
 	}
 }
 
@@ -47,10 +45,10 @@ public class Main_5052_전화번호목록 {
 		for (int i=0; i<numbers.length(); i++) {
 			if(now.cnt!=0) return false;
 			int n = numbers.charAt(i) - '0';
-			if(!now.map.containsKey(n)) {
-				now.map.put(n, new Node());
+			if(now.child[n]==null) {
+				now.child[n] = new Node();
 			}
-			now = now.map.get(n);
+			now = now.child[n];
 		}
 		now.cnt++;
 		return true;
