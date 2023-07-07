@@ -22,9 +22,9 @@ public class Main_6086_최대유량 {
 			pipe[b][a] += width;
 		}
 		
+		prev = new int[MAX];
 		int answer = 0;
 		while(true) {
-			prev = new int[MAX];
 			Arrays.fill(prev, -1);
 			
 			bfs(START,END);
