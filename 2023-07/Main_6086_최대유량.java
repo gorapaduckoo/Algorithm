@@ -9,7 +9,6 @@ import java.util.StringTokenizer;
 public class Main_6086_최대유량 {
 	static int N, MAX = 52, START = 0, END = 'Z'-'A';
 	static int[][] pipe = new int[MAX][MAX];
-	static int[][] flow = new int[MAX][MAX];
 	static int[] prev;
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -43,8 +42,9 @@ public class Main_6086_최대유량 {
 		
 		while(!q.isEmpty()) {
 			int now = q.poll();
+			if(now==end) break;
 			for (int next=0; next<pipe[now].length; next++) {
-				if(pipe[now][next]>flow[now][next] && prev[next]==-1) {
+				if(pipe[now][next]>0 && prev[next]==-1) {
 					q.add(next);
 					prev[next] = now;
 				}
@@ -57,13 +57,13 @@ public class Main_6086_최대유량 {
 		
 		int now = end;
 		while(now!=start) {
-			water = Math.min(pipe[prev[now]][now]-flow[prev[now]][now], water);
+			water = Math.min(pipe[prev[now]][now], water);
 			now = prev[now];
 		}
 		now = end;
 		while(now!=start) {
-			flow[prev[now]][now]+=water;
-			flow[now][prev[now]]-=water;
+			pipe[prev[now]][now]-=water;
+			pipe[now][prev[now]]+=water;
 			now = prev[now];
 		}
 		return water;
