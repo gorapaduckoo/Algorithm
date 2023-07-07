@@ -9,7 +9,7 @@ import java.util.StringTokenizer;
 public class Main_6086_최대유량 {
 	static int N, MAX = 52, START = 0, END = 'Z'-'A';
 	static int[][] pipe = new int[MAX][MAX];
-	static int[] prev;
+	static int[] prev = new int[MAX];
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		N = Integer.parseInt(br.readLine());
@@ -22,7 +22,6 @@ public class Main_6086_최대유량 {
 			pipe[b][a] += width;
 		}
 		
-		prev = new int[MAX];
 		int answer = 0;
 		while(true) {
 			Arrays.fill(prev, -1);
