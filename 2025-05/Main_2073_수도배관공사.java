@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Main_2073_수도공사 {
+public class Main_2073_수도배관공사 {
 	static int D, P;
 	static int[] length, capacity;
 	static int[] dp;
